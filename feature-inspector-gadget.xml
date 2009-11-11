@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Feature Inspector Gadget" author_email="shone@europe.com" description="Gadget for inspecting available gadget features within a gadget container">
+    <!-- 
+      Standard gadget features
+      according to Apache Shindig OpenSocial container 
+    -->
+    <Optional feature="analytics" />
+    <Optional feature="auth-refresh" />
+    <!-- OSDE doesn't support caja. Why?
+    <Optional feature="caja" />
+     -->
+    <Optional feature="content-rewrite" />
+    <Optional feature="core" />
+    <Optional feature="core.io" />
+    <Optional feature="dynamic-height" />
+    <Optional feature="dynamic-height.util" />
+    <Optional feature="flash" />
+    <Optional feature="i18n" />
+    <Optional feature="locked-domain" />
+    <Optional feature="minimessage" />
+    <Optional feature="oauthpopup" />
+    <Optional feature="opensocial-0.6" />
+    <Optional feature="opensocial-0.7" />
+    <Optional feature="opensocial-0.8" />
+    <Optional feature="opensocial-0.9" />
+    <Optional feature="opensocial-base" />
+    <Optional feature="opensocial-current" />
+    <Optional feature="opensocial-data" />
+    <Optional feature="opensocial-data-context" />
+    <Optional feature="opensocial-jsonrpc" />
+    <Optional feature="opensocial-reference" />
+    <Optional feature="opensocial-templates" />
+    <Optional feature="osapi" />
+    <Optional feature="pubsub" />
+    <Optional feature="rpc" />
+    <Optional feature="setprefs" />
+    <Optional feature="settitle" />
+    <Optional feature="skins" />
+    <Optional feature="swfobject" />
+    <Optional feature="tabs" />
+    <Optional feature="views" />
+    <Optional feature="xmlutil" />
+    
+    <!-- 
+      Container-specific gadget features
+      OSDE doesn't support them. 
+    -->
+    <Optional feature="xing-ext" />
+    <Optional feature="wave" />
+    <Optional feature="google.sharedstate" />
+    <Optional feature="finance" />
+    <Optional feature="multisize" />
+    <Optional feature="google-domain" />
+    <Optional feature="shareable-prefs" />
+  </ModulePrefs>
+  <Content type="html"><![CDATA[
+
+  <style type="text/css">
+    ul li {
+      font-weight: bold;
+      color: green;
+    }
+    ul li.unsupported {
+      color: red;
+    }
+  </style>
+
+  <div>
+    <h3>Standard Features</h3>
+    <ul id="features"></ul>
+  </div>
+  <div>
+    <h3>Custom Features</h3>
+    <ul id="custom-features"></ul>
+  </div>
+
+<script type="text/javascript">
+
+	var GadgetFeatureInspector = {
+	  _features: {
+      "auth-refresh": function() { return true; },
+      "caja": function() { return true; },
+      "content-rewrite": function() { return true; },
+      "core": function() { return true; },
+      "core.io": function() { return true; },
+      "dynamic-height": function() { return true; },
+      "dynamic-height.util": function() { return true; },
+      "flash": function() { return true; },
+      "i18n": function() { return true; },
+      "locked-domain": function() { return true; },
+      "minimessage": function() { return true; },
+      "oauthpopup": function() { return true; },
+      "opensocial-0.6": function() { return true; },
+      "opensocial-0.7": function() { return true; },
+      "opensocial-0.8": function() { return true; },
+      "opensocial-0.9": function() { return true; },
+      "opensocial-base": function() { return true; },
+      "opensocial-current": function() { return true; },
+      "opensocial-data": function() { return true; },
+      "opensocial-data-context": function() { return true; },
+      "opensocial-jsonrpc": function() { return true; },
+      "opensocial-reference": function() { return true; },
+      "opensocial-templates": function() { return true; },
+      "osapi": function() { return true; },
+      "pubsub": function() { return true; },
+      "rpc": function() { return true; },
+      "setprefs": function() { return true; },
+      "settitle": function() { return true; },
+      "skins": function() { return true; },
+      "swfobject": function() { return true; },
+      "tabs": function() { return true; },
+      "views": function() { return true; },
+      "xmlutil": function() { return true; }
+	  },
+    
+    _customFeatures: {
+      "xing-ext": function() { return true; },
+
+      "wave": function() { return true; },
+      "google.sharedstate": function() { return true; },
+      "finance": function() { return true; },
+      "multisize": function() { return true; },
+      "google-domain": function() { return true; },
+      "shareable-prefs": function() { return true; },
+      "amazing-unknown-feature": function() { return true; }
+    },
+	  
+	  initialize: function() {
+      var standardFeatureListEl = document.getElementById("features");
+      var customFeatureListEl = document.getElementById("custom-features");
+
+      // Filter standard features in supported and unsupported ones.
+      var filteredStandardFeatures = this.getFilteredFeatures(this._features);
+      var supportedStandardFeatures = filteredStandardFeatures[0];
+      for (var i=0; i<supportedStandardFeatures.length; ++i) {
+        this._addToList(standardFeatureListEl, supportedStandardFeatures[i]);
+      }
+      var unsupportedStandardFeatures = filteredStandardFeatures[1];
+      for (var i=0; i<unsupportedStandardFeatures.length; ++i) {
+        this._addToList(standardFeatureListEl, unsupportedStandardFeatures[i], true);
+      }
+      
+      // Filter custom, container-specific features in supported and unsupported ones.
+      var filteredCustomFeatures = this.getFilteredFeatures(this._customFeatures);
+      var supportedCustomFeatures = filteredCustomFeatures[0];
+      for (var i=0; i<supportedCustomFeatures.length; ++i) {
+        this._addToList(customFeatureListEl, supportedCustomFeatures[i]);
+      }
+      var unsupportedCustomFeatures = filteredCustomFeatures[1];
+      for (var i=0; i<unsupportedCustomFeatures.length; ++i) {
+        this._addToList(customFeatureListEl, unsupportedCustomFeatures[i], true);
+      }
+      
+      gadgets.window.adjustHeight();
+      
+	  },
+    
+    getFilteredFeatures: function(featureArray) {
+      var supportedFeatures = [], unsupportedFeatures = [];
+      var isFeatureSupported;
+      for (var i in featureArray) { 
+        if (featureArray.hasOwnProperty(i)) { 
+          isFeatureSupported = featureArray[i];
+          if (isFeatureSupported()) {
+            supportedFeatures.push(i);
+          } else {
+            unsupportedFeatures.push(i);
+          }
+        }
+      }
+      return [supportedFeatures, unsupportedFeatures];
+    },
+    
+    _addToList: function(ul, featureName, isUnsupportedFeature) {
+        var li = document.createElement("li");
+        li.innerHTML = featureName;
+        if (isUnsupportedFeature) {
+          li.className = "unsupported";
+        }
+        ul.appendChild(li);
+    }
+	};
+  
+	gadgets.util.registerOnLoadHandler(function() {
+	  GadgetFeatureInspector.initialize();
+	});
+</script>
+  ]]></Content>
+</Module>

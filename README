@@ -1,0 +1,37 @@
+Gadget Feature Inspector
+========================
+
+What is it?
+-----------
+Gadget used to inspect what gadget features are supported by a gadget container 
+in which this gadget is run. More information about gadgets you can find here:
+http://code.google.com/apis/gadgets/docs/spec.html
+
+OpenSocial containers are also gadget containers so any social networking site
+supporting OpenSocial can also run this gadget.
+
+Some of gadget containers in which you can run this gadget are: 
+- MySpace, Orkut, LinkedIn, Ning, XING, etc.
+- iGoogle
+- Google Mail
+- Google Wave
+
+Additional OpenSocial containers can be found at:
+http://wiki.opensocial.org/index.php?title=Main_Page#Container_Information
+
+Release notes
+-------------
+
+* Version 0.1
+
+November 11, 2009
+
+The first and also a proof-of-concept version.
+
+Originally, gadgets.util.hasFeature was intended to be used for querying features 
+supported by the container. Unfortunately, gadgets.util.hasFeature is useless 
+(until and including OpenSocial 0.9) since it only checks for features that are 
+declared by gadget itself and not whether container supports a feature.
+
+Because of this, whether a given gadget feature is supported or not is checked 
+in custom way using callback methods.
