@@ -7,9 +7,11 @@
     -->
     <Optional feature="analytics" />
     <Optional feature="auth-refresh" />
+    
     <!-- OSDE doesn't support caja. Why?
     <Optional feature="caja" />
      -->
+     
     <Optional feature="content-rewrite" />
     <Optional feature="core" />
     <Optional feature="core.io" />
@@ -77,59 +79,59 @@
 
 <script type="text/javascript">
 
-	var GadgetFeatureInspector = {
-	  _features: {
-      "auth-refresh": function() { return true; },
-      "caja": function() { return true; },
-      "content-rewrite": function() { return true; },
-      "core": function() { return true; },
-      "core.io": function() { return true; },
-      "dynamic-height": function() { return true; },
-      "dynamic-height.util": function() { return true; },
-      "flash": function() { return true; },
-      "i18n": function() { return true; },
-      "locked-domain": function() { return true; },
-      "minimessage": function() { return true; },
-      "oauthpopup": function() { return true; },
-      "opensocial-0.6": function() { return true; },
-      "opensocial-0.7": function() { return true; },
-      "opensocial-0.8": function() { return true; },
-      "opensocial-0.9": function() { return true; },
-      "opensocial-base": function() { return true; },
-      "opensocial-current": function() { return true; },
-      "opensocial-data": function() { return true; },
-      "opensocial-data-context": function() { return true; },
-      "opensocial-jsonrpc": function() { return true; },
-      "opensocial-reference": function() { return true; },
-      "opensocial-templates": function() { return true; },
-      "osapi": function() { return true; },
-      "pubsub": function() { return true; },
-      "rpc": function() { return true; },
-      "setprefs": function() { return true; },
-      "settitle": function() { return true; },
-      "skins": function() { return true; },
-      "swfobject": function() { return true; },
-      "tabs": function() { return true; },
-      "views": function() { return true; },
-      "xmlutil": function() { return true; }
-	  },
+  var GadgetFeatureInspector = {
+    _features: {
+      "auth-refresh":               function() { return false; },
+      "caja":                       function() { return !!window.caja___; },
+      "content-rewrite":            function() { return true; },
+      "core":                       function() { return !!window.gadgets; },
+      "core.io":                    function() { return !!window.gadgets && !!gadgets.io; },
+      "dynamic-height":             function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.adjustHeight ) || !!window._IG_AdjustIFrameHeight; },
+      "dynamic-height.util":        function() { return !!window.gadgets && !!gadgets.window && !!gadgets.window.getViewportDimensions; },
+      "flash":                      function() { return ( !!window.gadgets && !!gadgets.flash ) || !!window._IG_EmbedFlash; },
+      "i18n":                       function() { return !!window.gadgets && !!gadgets.i18n; },
+      "locked-domain":              function() { return true; },
+      "minimessage":                function() { return ( !!window.gadgets && !!gadgets.MiniMessage ) || !!window._IG_MiniMessage; },
+      "oauthpopup":                 function() { return !!window.gadgets && !!gadgets.oauth && !!gadgets.oauth.Popup; },
+      "opensocial-0.6":             function() { return !!window.opensocial && !!opensocial.Environment && !!opensocial.Environment.prototype && !!opensocial.Environment.prototype.getSurface; },
+      "opensocial-0.7":             function() { return !!window.opensocial && !!opensocial.DataRequest && !!opensocial.DataRequest.Group },
+      "opensocial-0.8":             function() { return !!window.opensocial && !!opensocial.IdSpec && !!opensocial.IdSpec.GroupId; },
+      "opensocial-0.9":             function() { return !!window.opensocial && !!opensocial.invalidateKeys; },
+      "opensocial-base":            function() { return false; }, // TODO
+      "opensocial-current":         function() { return false; }, // TODO
+      "opensocial-data":            function() { return !!window.opensocial && !!opensocial.data; },
+      "opensocial-data-context":    function() { return !!window.opensocial && !!opensocial.data && !!opensocial.data.DataContext; },
+      "opensocial-jsonrpc":         function() { return !!window.JsonRpcContainer; },
+      "opensocial-reference":       function() { return !!window.opensocial && !!opensocial.getEnvironment; },
+      "opensocial-templates":       function() { return !!window.opensocial && !!opensocial.template; },
+      "osapi":                      function() { return !!window.osapi; },
+      "pubsub":                     function() { return !!window.gadgets && !!gadgets.pubsub; },
+      "rpc":                        function() { return !!window.gadgets && !!gadgets.rpc; },
+      "setprefs":                   function() { return !!window.gadgets && !!gadgets.Prefs && !!gadgets.Prefs.prototype && !!gadgets.Prefs.prototype.set; },
+      "settitle":                   function() { ( !!window.gadgets && !!gadgets.window && !!gadgets.window.setTitle ) || !!window._IG_SetTitle; },
+      "skins":                      function() { return !!window.gadgets && !!gadgets.skins; },
+      "swfobject":                  function() { return !!window.swfobject; },
+      "tabs":                       function() { return !!window.gadgets && !!gadgets.Tab; },
+      "views":                      function() { return !!window.gadgets && !!gadgets.views; },
+      "xmlutil":                    function() { return !!window.opensocial && !!opensocial.xmlutil; }
+    },
     
     _customFeatures: {
-      "xing-ext": function() { return true; },
+      "xing-ext": function() { return false; },
 
-      "wave": function() { return true; },
-      "google.sharedstate": function() { return true; },
-      "finance": function() { return true; },
-      "multisize": function() { return true; },
-      "google-domain": function() { return true; },
-      "shareable-prefs": function() { return true; },
-      "amazing-unknown-feature": function() { return true; }
+      "wave": function() { return false; },
+      "google.sharedstate": function() { return false; },
+      "finance": function() { return false; },
+      "multisize": function() { return false; },
+      "google-domain": function() { return false; },
+      "shareable-prefs": function() { return false; },
+      "amazing-unknown-feature": function() { return false; }
     },
-	  
-	  initialize: function() {
+    
+    initialize: function() {
       var standardFeatureListEl = document.getElementById("features");
       var customFeatureListEl = document.getElementById("custom-features");
-
+      
       // Filter standard features in supported and unsupported ones.
       var filteredStandardFeatures = this.getFilteredFeatures(this._features);
       var supportedStandardFeatures = filteredStandardFeatures[0];
@@ -154,7 +156,7 @@
       
       gadgets.window.adjustHeight();
       
-	  },
+    },
     
     getFilteredFeatures: function(featureArray) {
       var supportedFeatures = [], unsupportedFeatures = [];
@@ -180,11 +182,11 @@
         }
         ul.appendChild(li);
     }
-	};
+  };
   
-	gadgets.util.registerOnLoadHandler(function() {
-	  GadgetFeatureInspector.initialize();
-	});
+  gadgets.util.registerOnLoadHandler(function() {
+    GadgetFeatureInspector.initialize();
+  });
 </script>
   ]]></Content>
 </Module>
