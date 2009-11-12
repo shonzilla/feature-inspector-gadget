@@ -81,16 +81,16 @@
 
   var GadgetFeatureInspector = {
     _features: {
-      "auth-refresh":               function() { return false; },
+      "auth-refresh":               function() { return false; }, // TODO
       "caja":                       function() { return !!window.caja___; },
-      "content-rewrite":            function() { return true; },
+      "content-rewrite":            function() { return false; }, // TODO
       "core":                       function() { return !!window.gadgets; },
       "core.io":                    function() { return !!window.gadgets && !!gadgets.io; },
       "dynamic-height":             function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.adjustHeight ) || !!window._IG_AdjustIFrameHeight; },
       "dynamic-height.util":        function() { return !!window.gadgets && !!gadgets.window && !!gadgets.window.getViewportDimensions; },
       "flash":                      function() { return ( !!window.gadgets && !!gadgets.flash ) || !!window._IG_EmbedFlash; },
       "i18n":                       function() { return !!window.gadgets && !!gadgets.i18n; },
-      "locked-domain":              function() { return true; },
+      "locked-domain":              function() { return false; }, // TODO
       "minimessage":                function() { return ( !!window.gadgets && !!gadgets.MiniMessage ) || !!window._IG_MiniMessage; },
       "oauthpopup":                 function() { return !!window.gadgets && !!gadgets.oauth && !!gadgets.oauth.Popup; },
       "opensocial-0.6":             function() { return !!window.opensocial && !!opensocial.Environment && !!opensocial.Environment.prototype && !!opensocial.Environment.prototype.getSurface; },
@@ -116,6 +116,7 @@
       "xmlutil":                    function() { return !!window.opensocial && !!opensocial.xmlutil; }
     },
     
+    // TODO
     _customFeatures: {
       "xing-ext": function() { return false; },
 
