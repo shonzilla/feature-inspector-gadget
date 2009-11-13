@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Feature Inspector Gadget" author_email="shone@europe.com" description="Gadget for inspecting available gadget features within a gadget container">
+  <ModulePrefs
+    title="Feature Inspector Gadget"
+    author_email="shone@europe.com"
+    description="Gadget for inspecting available gadget features within a gadget container"
+    height="500">
+    
     <!-- 
       Standard gadget features
       according to Apache Shindig OpenSocial container 
@@ -143,7 +148,6 @@
       "multisize":                  function() { return !!window._IG_MultiSize; },
       "wave":                       function() { return !!window.wave; },
       "xing-ext":                   function() { return !!window.xing; }
-
     },
 
     initialize: function() {
@@ -172,7 +176,7 @@
         this._addToList(customFeatureListEl, unsupportedCustomFeatures[i], true);
       }
 
-      gadgets.window.adjustHeight();
+      this._adjustHeight();
     },
 
     getFilteredFeatures: function(featureArray) {
@@ -181,11 +185,14 @@
       for (var i in featureArray) { 
         if (featureArray.hasOwnProperty(i)) { 
           isFeatureSupported = featureArray[i];
-          if (isFeatureSupported()) {
-            supportedFeatures.push(i);
-          } else {
-            unsupportedFeatures.push(i);
-          }
+          try {
+            if (isFeatureSupported()) {
+              supportedFeatures.push(i);
+              continue;
+            }
+          } catch(e) {}
+          
+          unsupportedFeatures.push(i);
         }
       }
       return [supportedFeatures, unsupportedFeatures];
@@ -198,12 +205,27 @@
           li.className = "unsupported";
         }
         ul.appendChild(li);
+    },
+    
+    _adjustHeight: function() {
+      if (window.gadgets && gadgets.window && gadgets.window.adjustHeight) {
+        gadgets.window.adjustHeight();
+      } else if (window._IG_AdjustIFrameHeight){
+        _IG_AdjustIFrameHeight();
+      }
     }
   };
-
-  gadgets.util.registerOnLoadHandler(function() {
-    GadgetFeatureInspector.initialize();
-  });
+  
+  
+  var initializer = function() { GadgetFeatureInspector.initialize(); };
+  
+  if (window._IG_RegisterOnloadHandler) {
+    window._IG_RegisterOnloadHandler(initializer);
+  } else if (window.gadgets && gadgets.util && gadgets.util.registerOnLoadHandler) {
+    gadgets.util.registerOnLoadHandler(initializer);
+  } else {
+    initializer();
+  }
 </script>
   ]]></Content>
 </Module>
