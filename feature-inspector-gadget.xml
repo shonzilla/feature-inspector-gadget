@@ -12,7 +12,11 @@
     <Optional feature="caja" />
      -->
      
-    <Optional feature="content-rewrite" />
+    <Optional feature="content-rewrite">
+      <Param name="expires">86400</Param>
+      <Param name="include-url">.jpg</Param>
+      <Param name="exclude-url">.png</Param>
+    </Optional>
     <Optional feature="core" />
     <Optional feature="core.io" />
     <Optional feature="dynamic-height" />
@@ -48,13 +52,16 @@
       Container-specific gadget features
       OSDE doesn't support them. 
     -->
-    <Optional feature="xing-ext" />
-    <Optional feature="wave" />
-    <Optional feature="google.sharedstate" />
+    <Optional feature="ads" />
+    <Optional feature="drag" />
     <Optional feature="finance" />
-    <Optional feature="multisize" />
     <Optional feature="google-domain" />
-    <Optional feature="shareable-prefs" />
+    <Optional feature="google.sharedstate" />
+    <Optional feature="grid" />
+    <Optional feature="multisize" />
+    <Optional feature="wave" />
+    <Optional feature="xing-ext" />
+
   </ModulePrefs>
   <Content type="html"><![CDATA[
 
@@ -66,6 +73,9 @@
     ul li.unsupported {
       color: red;
     }
+    .content-rewrite-test {
+      display: none;
+    }
   </style>
 
   <div>
@@ -76,14 +86,20 @@
     <h3>Custom Features</h3>
     <ul id="custom-features"></ul>
   </div>
+  
+  <div class="content-rewrite-test">
+    <img src="http://www.foo.bar/image.jpg" id="cr-jpg" />
+    <img src="http://www.foo.bar/image.png" id="cr-png" />
+  </div>
 
 <script type="text/javascript">
 
   var GadgetFeatureInspector = {
     _features: {
-      "auth-refresh":               function() { return false; }, // TODO
+      "analytics":                  function() { return  window.urchinTracker || !!window._gat || !!window._IG_GA || !!window._IG_Analytics; },
+      "auth-refresh":               function() { return false; },
       "caja":                       function() { return !!window.caja___; },
-      "content-rewrite":            function() { return false; }, // TODO
+      "content-rewrite":            function() { return document.getElementById("cr-jpg").src != "http://www.foo.bar/image.jpg" && document.getElementById("cr-png").src == "http://www.foo.bar/image.png"; },
       "core":                       function() { return !!window.gadgets; },
       "core.io":                    function() { return !!window.gadgets && !!gadgets.io; },
       "dynamic-height":             function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.adjustHeight ) || !!window._IG_AdjustIFrameHeight; },
@@ -97,8 +113,8 @@
       "opensocial-0.7":             function() { return !!window.opensocial && !!opensocial.DataRequest && !!opensocial.DataRequest.Group },
       "opensocial-0.8":             function() { return !!window.opensocial && !!opensocial.IdSpec && !!opensocial.IdSpec.GroupId; },
       "opensocial-0.9":             function() { return !!window.opensocial && !!opensocial.invalidateKeys; },
-      "opensocial-base":            function() { return false; }, // TODO
-      "opensocial-current":         function() { return false; }, // TODO
+      "opensocial-base":            function() { return !!window.FieldTranslations; }, // TODO... not sure if this is correct for all OSO versions
+      "opensocial-current":         function() { return !!window.requiredConfig; },
       "opensocial-data":            function() { return !!window.opensocial && !!opensocial.data; },
       "opensocial-data-context":    function() { return !!window.opensocial && !!opensocial.data && !!opensocial.data.DataContext; },
       "opensocial-jsonrpc":         function() { return !!window.JsonRpcContainer; },
@@ -107,32 +123,33 @@
       "osapi":                      function() { return !!window.osapi; },
       "pubsub":                     function() { return !!window.gadgets && !!gadgets.pubsub; },
       "rpc":                        function() { return !!window.gadgets && !!gadgets.rpc; },
-      "setprefs":                   function() { return !!window.gadgets && !!gadgets.Prefs && !!gadgets.Prefs.prototype && !!gadgets.Prefs.prototype.set; },
-      "settitle":                   function() { ( !!window.gadgets && !!gadgets.window && !!gadgets.window.setTitle ) || !!window._IG_SetTitle; },
+      "setprefs":                   function() { return ( !!window.gadgets && !!gadgets.Prefs && !!gadgets.Prefs.prototype && !!gadgets.Prefs.prototype.set ) || ( !!window._IG_Prefs && !!_IG_Prefs.prototype && !!_IG_Prefs.prototype.set ); },
+      "settitle":                   function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.setTitle ) || !!window._IG_SetTitle; },
       "skins":                      function() { return !!window.gadgets && !!gadgets.skins; },
       "swfobject":                  function() { return !!window.swfobject; },
-      "tabs":                       function() { return !!window.gadgets && !!gadgets.Tab; },
+      "tabs":                       function() { return ( !!window.gadgets && !!gadgets.Tab ) || !!window._IG_Tabs; },
       "views":                      function() { return !!window.gadgets && !!gadgets.views; },
       "xmlutil":                    function() { return !!window.opensocial && !!opensocial.xmlutil; }
     },
-    
-    // TODO
-    _customFeatures: {
-      "xing-ext": function() { return false; },
 
-      "wave": function() { return false; },
-      "google.sharedstate": function() { return false; },
-      "finance": function() { return false; },
-      "multisize": function() { return false; },
-      "google-domain": function() { return false; },
-      "shareable-prefs": function() { return false; },
-      "amazing-unknown-feature": function() { return false; }
+
+    _customFeatures: {
+      "ads":                        function() { return !!window._ADS_ClickDestinationUrl; },
+      "drag":                       function() { return !!window._IG_Drag; },
+      "finance":                    function() { return !!window.google && !!google.finance; },
+      "google-domain":              function() { return document.domain == "www.google.com"; },
+      "google.sharedstate":         function() { return !!window.gadgets && !!gadgets.sharedstate; },
+      "grid":                       function() { return !!window._IG_Grid; },
+      "multisize":                  function() { return !!window._IG_MultiSize; },
+      "wave":                       function() { return !!window.wave; },
+      "xing-ext":                   function() { return !!window.xing; }
+
     },
-    
+
     initialize: function() {
       var standardFeatureListEl = document.getElementById("features");
       var customFeatureListEl = document.getElementById("custom-features");
-      
+
       // Filter standard features in supported and unsupported ones.
       var filteredStandardFeatures = this.getFilteredFeatures(this._features);
       var supportedStandardFeatures = filteredStandardFeatures[0];
@@ -143,7 +160,7 @@
       for (var i=0; i<unsupportedStandardFeatures.length; ++i) {
         this._addToList(standardFeatureListEl, unsupportedStandardFeatures[i], true);
       }
-      
+
       // Filter custom, container-specific features in supported and unsupported ones.
       var filteredCustomFeatures = this.getFilteredFeatures(this._customFeatures);
       var supportedCustomFeatures = filteredCustomFeatures[0];
@@ -154,11 +171,10 @@
       for (var i=0; i<unsupportedCustomFeatures.length; ++i) {
         this._addToList(customFeatureListEl, unsupportedCustomFeatures[i], true);
       }
-      
+
       gadgets.window.adjustHeight();
-      
     },
-    
+
     getFilteredFeatures: function(featureArray) {
       var supportedFeatures = [], unsupportedFeatures = [];
       var isFeatureSupported;
@@ -174,7 +190,7 @@
       }
       return [supportedFeatures, unsupportedFeatures];
     },
-    
+
     _addToList: function(ul, featureName, isUnsupportedFeature) {
         var li = document.createElement("li");
         li.innerHTML = featureName;
@@ -184,7 +200,7 @@
         ul.appendChild(li);
     }
   };
-  
+
   gadgets.util.registerOnLoadHandler(function() {
     GadgetFeatureInspector.initialize();
   });
