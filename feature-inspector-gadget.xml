@@ -196,7 +196,6 @@
         
         for (i in this._features) {
           if (this._features.hasOwnProperty(i)) {
-            console.log(i);
             isFeatureSupported = this._features[i]();
             state = isFeatureSupported ? "supported" : "unsupported";
             html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
@@ -207,7 +206,6 @@
         html = ""
         for (i in this._customFeatures) {
           if (this._customFeatures.hasOwnProperty(i)) {
-            console.log(i);
             isFeatureSupported = this._customFeatures[i]();
             state = isFeatureSupported ? "supported" : "unsupported";
             html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
