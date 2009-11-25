@@ -11,12 +11,12 @@
       according to Apache Shindig OpenSocial container 
     -->
     <Optional feature="analytics" />
+    <!-- Probably undetectable
     <Optional feature="auth-refresh" />
-    
-    <!-- OSDE doesn't support caja. Why?
+    -->
+    <!-- TODO
     <Optional feature="caja" />
-     -->
-     
+    -->
     <Optional feature="content-rewrite">
       <Param name="expires">86400</Param>
       <Param name="include-url">.jpg</Param>
@@ -28,7 +28,9 @@
     <Optional feature="dynamic-height.util" />
     <Optional feature="flash" />
     <Optional feature="i18n" />
+    <!-- Probably undetectable
     <Optional feature="locked-domain" />
+    -->
     <Optional feature="minimessage" />
     <Optional feature="oauthpopup" />
     <Optional feature="opensocial-0.6" />
@@ -36,7 +38,7 @@
     <Optional feature="opensocial-0.8" />
     <Optional feature="opensocial-0.9" />
     <Optional feature="opensocial-base" />
-    <Optional feature="opensocial-current" />
+    <!-- <Optional feature="opensocial-current" /> -->
     <Optional feature="opensocial-data" />
     <Optional feature="opensocial-data-context" />
     <Optional feature="opensocial-jsonrpc" />
@@ -60,7 +62,6 @@
     <Optional feature="ads" />
     <Optional feature="drag" />
     <Optional feature="finance" />
-    <Optional feature="google-domain" />
     <Optional feature="google.sharedstate" />
     <Optional feature="grid" />
     <Optional feature="multisize" />
@@ -69,27 +70,39 @@
 
   </ModulePrefs>
   <Content type="html"><![CDATA[
-
   <style type="text/css">
-    ul li {
-      font-weight: bold;
-      color: green;
+    body {
+      font-size: 11px;
+      font-family: Verdana, Arial, sans-serif;
     }
-    ul li.unsupported {
-      color: red;
+    table .green {
+      background-color: green;
+    }
+    table .red {
+      background-color: red;
+    }
+    table .green,
+    table .red {
+      width: 20%;
+    }
+    table .name {
+      width: 80%;
+    }
+    #custom-features {
+      margin: 20px 0 0 0;
     }
     .content-rewrite-test {
       display: none;
     }
   </style>
 
-  <div>
-    <h3>Standard Features</h3>
-    <ul id="features"></ul>
+  <div id="standard-features">
+    <h2>Standard Features</h3>
+    <table width="100%" id="standard-features-table" border="1" cellpadding="3" cellspacing="3"></table>
   </div>
-  <div>
-    <h3>Custom Features</h3>
-    <ul id="custom-features"></ul>
+  <div id="custom-features">
+    <h2>Custom Features</h3>
+    <table width="100%" id="custom-features-table" border="1" cellpadding="3" cellspacing="3"></table>
   </div>
   
   <div class="content-rewrite-test">
@@ -97,135 +110,99 @@
     <img src="http://www.foo.bar/image.png" id="cr-png" />
   </div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
+    var GadgetFeatureInspector = {
+      _features: {
+        "analytics":                  function() { return  window.urchinTracker || !!window._gat || !!window._IG_GA || !!window._IG_Analytics; },
+        // "auth-refresh":            function() { return false; }, // Probably undetectable
+        //"caja":                       function() { return !!window.caja___; }, // TODO
+        "content-rewrite":            function() { return document.getElementById("cr-jpg").src != "http://www.foo.bar/image.jpg" && document.getElementById("cr-png").src == "http://www.foo.bar/image.png"; },
+        "core":                       function() { return !!window.gadgets; },
+        "core.io":                    function() { return !!window.gadgets && !!gadgets.io; },
+        "dynamic-height":             function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.adjustHeight ) || !!window._IG_AdjustIFrameHeight; },
+        "dynamic-height.util":        function() { return !!window.gadgets && !!gadgets.window && !!gadgets.window.getViewportDimensions; },
+        "flash":                      function() { return ( !!window.gadgets && !!gadgets.flash ) || !!window._IG_EmbedFlash; },
+        "i18n":                       function() { return !!window.gadgets && !!gadgets.i18n; },
+        // "locked-domain":           function() { return false; }, // Propably undetectable
+        "minimessage":                function() { return ( !!window.gadgets && !!gadgets.MiniMessage ) || !!window._IG_MiniMessage; },
+        "oauthpopup":                 function() { return !!window.gadgets && !!gadgets.oauth && !!gadgets.oauth.Popup; },
+        "opensocial-0.6":             function() { return !!window.opensocial && !!opensocial.Environment && !!opensocial.Environment.prototype && !!opensocial.Environment.prototype.getSurface; },
+        "opensocial-0.7":             function() { return !!window.opensocial && !!opensocial.DataRequest && !!opensocial.DataRequest.Group; },
+        "opensocial-0.8":             function() { return !!window.opensocial && !!opensocial.IdSpec && !!opensocial.IdSpec.GroupId; },
+        "opensocial-0.9":             function() { return !!window.opensocial && !!opensocial.Person && !!opensocial.Person.prototype && !!opensocial.Person.prototype.getAppData; },
+        "opensocial-base":            function() { return !!window.FieldTranslations; }, // TODO... not sure if this is correct for all OSO versions
+        // "opensocial-current":         function() { return !!window.requiredConfig; }, // TODO
+        "opensocial-data":            function() { return !!window.opensocial && !!opensocial.data; },
+        "opensocial-data-context":    function() { return !!window.opensocial && !!opensocial.data && !!opensocial.data.DataContext; },
+        "opensocial-jsonrpc":         function() { return !!window.JsonRpcContainer; },
+        "opensocial-reference":       function() { return !!window.opensocial && !!opensocial.getEnvironment; },
+        "opensocial-templates":       function() { return ( !!window.opensocial && !!opensocial.template || !!window.os ); },
+        "osapi":                      function() { return !!window.osapi; },
+        "pubsub":                     function() { return !!window.gadgets && !!gadgets.pubsub; },
+        "rpc":                        function() { return !!window.gadgets && !!gadgets.rpc; },
+        "setprefs":                   function() { return ( !!window.gadgets && !!gadgets.Prefs && !!gadgets.Prefs.prototype && !!gadgets.Prefs.prototype.set ) || ( !!window._IG_Prefs && !!_IG_Prefs.prototype && !!_IG_Prefs.prototype.set ); },
+        "settitle":                   function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.setTitle ) || !!window._IG_SetTitle; },
+        "skins":                      function() { return !!window.gadgets && !!gadgets.skins; },
+        "swfobject":                  function() { return !!window.swfobject; },
+        "tabs":                       function() { return ( !!window.gadgets && !!gadgets.Tab ) || !!window._IG_Tabs; },
+        "views":                      function() { return !!window.gadgets && !!gadgets.views; },
+        "xmlutil":                    function() { return !!window.opensocial && !!opensocial.xmlutil; }
+      },
 
-  var GadgetFeatureInspector = {
-    _features: {
-      "analytics":                  function() { return  window.urchinTracker || !!window._gat || !!window._IG_GA || !!window._IG_Analytics; },
-      "auth-refresh":               function() { return false; },
-      "caja":                       function() { return !!window.caja___; },
-      "content-rewrite":            function() { return document.getElementById("cr-jpg").src != "http://www.foo.bar/image.jpg" && document.getElementById("cr-png").src == "http://www.foo.bar/image.png"; },
-      "core":                       function() { return !!window.gadgets; },
-      "core.io":                    function() { return !!window.gadgets && !!gadgets.io; },
-      "dynamic-height":             function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.adjustHeight ) || !!window._IG_AdjustIFrameHeight; },
-      "dynamic-height.util":        function() { return !!window.gadgets && !!gadgets.window && !!gadgets.window.getViewportDimensions; },
-      "flash":                      function() { return ( !!window.gadgets && !!gadgets.flash ) || !!window._IG_EmbedFlash; },
-      "i18n":                       function() { return !!window.gadgets && !!gadgets.i18n; },
-      "locked-domain":              function() { return false; }, // TODO
-      "minimessage":                function() { return ( !!window.gadgets && !!gadgets.MiniMessage ) || !!window._IG_MiniMessage; },
-      "oauthpopup":                 function() { return !!window.gadgets && !!gadgets.oauth && !!gadgets.oauth.Popup; },
-      "opensocial-0.6":             function() { return !!window.opensocial && !!opensocial.Environment && !!opensocial.Environment.prototype && !!opensocial.Environment.prototype.getSurface; },
-      "opensocial-0.7":             function() { return !!window.opensocial && !!opensocial.DataRequest && !!opensocial.DataRequest.Group },
-      "opensocial-0.8":             function() { return !!window.opensocial && !!opensocial.IdSpec && !!opensocial.IdSpec.GroupId; },
-      "opensocial-0.9":             function() { return !!window.opensocial && !!opensocial.invalidateKeys; },
-      "opensocial-base":            function() { return !!window.FieldTranslations; }, // TODO... not sure if this is correct for all OSO versions
-      "opensocial-current":         function() { return !!window.requiredConfig; },
-      "opensocial-data":            function() { return !!window.opensocial && !!opensocial.data; },
-      "opensocial-data-context":    function() { return !!window.opensocial && !!opensocial.data && !!opensocial.data.DataContext; },
-      "opensocial-jsonrpc":         function() { return !!window.JsonRpcContainer; },
-      "opensocial-reference":       function() { return !!window.opensocial && !!opensocial.getEnvironment; },
-      "opensocial-templates":       function() { return !!window.opensocial && !!opensocial.template; },
-      "osapi":                      function() { return !!window.osapi; },
-      "pubsub":                     function() { return !!window.gadgets && !!gadgets.pubsub; },
-      "rpc":                        function() { return !!window.gadgets && !!gadgets.rpc; },
-      "setprefs":                   function() { return ( !!window.gadgets && !!gadgets.Prefs && !!gadgets.Prefs.prototype && !!gadgets.Prefs.prototype.set ) || ( !!window._IG_Prefs && !!_IG_Prefs.prototype && !!_IG_Prefs.prototype.set ); },
-      "settitle":                   function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.setTitle ) || !!window._IG_SetTitle; },
-      "skins":                      function() { return !!window.gadgets && !!gadgets.skins; },
-      "swfobject":                  function() { return !!window.swfobject; },
-      "tabs":                       function() { return ( !!window.gadgets && !!gadgets.Tab ) || !!window._IG_Tabs; },
-      "views":                      function() { return !!window.gadgets && !!gadgets.views; },
-      "xmlutil":                    function() { return !!window.opensocial && !!opensocial.xmlutil; }
-    },
 
-
-    _customFeatures: {
-      "ads":                        function() { return !!window._ADS_ClickDestinationUrl; },
-      "drag":                       function() { return !!window._IG_Drag; },
-      "finance":                    function() { return !!window.google && !!google.finance; },
-      "google-domain":              function() { return document.domain == "www.google.com"; },
-      "google.sharedstate":         function() { return !!window.gadgets && !!gadgets.sharedstate; },
-      "grid":                       function() { return !!window._IG_Grid; },
-      "multisize":                  function() { return !!window._IG_MultiSize; },
-      "wave":                       function() { return !!window.wave; },
-      "xing-ext":                   function() { return !!window.xing; }
-    },
-
-    initialize: function() {
-      var standardFeatureListEl = document.getElementById("features");
-      var customFeatureListEl = document.getElementById("custom-features");
-
-      // Filter standard features in supported and unsupported ones.
-      var filteredStandardFeatures = this.getFilteredFeatures(this._features);
-      var supportedStandardFeatures = filteredStandardFeatures[0];
-      for (var i=0; i<supportedStandardFeatures.length; ++i) {
-        this._addToList(standardFeatureListEl, supportedStandardFeatures[i]);
-      }
-      var unsupportedStandardFeatures = filteredStandardFeatures[1];
-      for (var i=0; i<unsupportedStandardFeatures.length; ++i) {
-        this._addToList(standardFeatureListEl, unsupportedStandardFeatures[i], true);
-      }
-
-      // Filter custom, container-specific features in supported and unsupported ones.
-      var filteredCustomFeatures = this.getFilteredFeatures(this._customFeatures);
-      var supportedCustomFeatures = filteredCustomFeatures[0];
-      for (var i=0; i<supportedCustomFeatures.length; ++i) {
-        this._addToList(customFeatureListEl, supportedCustomFeatures[i]);
-      }
-      var unsupportedCustomFeatures = filteredCustomFeatures[1];
-      for (var i=0; i<unsupportedCustomFeatures.length; ++i) {
-        this._addToList(customFeatureListEl, unsupportedCustomFeatures[i], true);
-      }
-
-      this._adjustHeight();
-    },
-
-    getFilteredFeatures: function(featureArray) {
-      var supportedFeatures = [], unsupportedFeatures = [];
-      var isFeatureSupported;
-      for (var i in featureArray) { 
-        if (featureArray.hasOwnProperty(i)) { 
-          isFeatureSupported = featureArray[i];
-          try {
-            if (isFeatureSupported()) {
-              supportedFeatures.push(i);
-              continue;
-            }
-          } catch(e) {}
-          
-          unsupportedFeatures.push(i);
+      _customFeatures: {
+        "ads":                        function() { return !!window._ADS_ClickDestinationUrl; },
+        "drag":                       function() { return !!window._IG_Drag; },
+        "finance":                    function() { return !!window.google && !!google.finance; },
+        "google.sharedstate":         function() { return !!window.gadgets && !!gadgets.sharedstate; },
+        "grid":                       function() { return !!window._IG_Grid; },
+        "multisize":                  function() { return !!window._IG_MultiSize; },
+        "wave":                       function() { return !!window.wave; },
+        "xing-ext":                   function() { return !!window.xing; }
+      },
+      
+      initialize: function() {
+        var standardFeaturesTable = document.getElementById("standard-features-table"),
+            customFeaturesTable = document.getElementById("custom-features-table"),
+            i, isFeatureSupported, html = "", className;
+        
+        for (i in this._features) if (this._features.hasOwnProperty(i)) {
+          isFeatureSupported = this._features[i]();
+          className = isFeatureSupported ? "green" : "red";
+          html += '<tr><td class="name">' + i + '</td><td class="' + className + '"></td>';
         }
-      }
-      return [supportedFeatures, unsupportedFeatures];
-    },
-
-    _addToList: function(ul, featureName, isUnsupportedFeature) {
-        var li = document.createElement("li");
-        li.innerHTML = featureName;
-        if (isUnsupportedFeature) {
-          li.className = "unsupported";
+        standardFeaturesTable.innerHTML = html;
+        
+        html = ""
+        for (i in this._customFeatures) if (this._customFeatures.hasOwnProperty(i)) {
+          isFeatureSupported = this._customFeatures[i]();
+          className = isFeatureSupported ? "green" : "red";
+          html += '<tr><td class="name">' + i + '</td><td class="' + className + '"></td>';
         }
-        ul.appendChild(li);
-    },
-    
-    _adjustHeight: function() {
-      if (window.gadgets && gadgets.window && gadgets.window.adjustHeight) {
-        gadgets.window.adjustHeight();
-      } else if (window._IG_AdjustIFrameHeight){
-        _IG_AdjustIFrameHeight();
+        customFeaturesTable.innerHTML = html;
+        
+        this._adjustHeight();
+      },
+
+      _adjustHeight: function() {
+        try {
+          gadgets.window.adjustHeight();
+        } catch(e) {
+          try { window._IG_AdjustIFrameHeight(); } catch(e) {}
+        };
       }
+    };
+
+
+    var initializer = function() { GadgetFeatureInspector.initialize(); };
+
+    if (window._IG_RegisterOnloadHandler) {
+      window._IG_RegisterOnloadHandler(initializer);
+    } else if (window.gadgets && gadgets.util && gadgets.util.registerOnLoadHandler) {
+      gadgets.util.registerOnLoadHandler(initializer);
+    } else {
+      initializer();
     }
-  };
-  
-  
-  var initializer = function() { GadgetFeatureInspector.initialize(); };
-  
-  if (window._IG_RegisterOnloadHandler) {
-    window._IG_RegisterOnloadHandler(initializer);
-  } else if (window.gadgets && gadgets.util && gadgets.util.registerOnLoadHandler) {
-    gadgets.util.registerOnLoadHandler(initializer);
-  } else {
-    initializer();
-  }
-</script>
+  </script>
   ]]></Content>
 </Module>
