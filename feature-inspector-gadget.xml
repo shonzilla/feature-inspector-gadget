@@ -75,15 +75,19 @@
       font-size: 11px;
       font-family: Verdana, Arial, sans-serif;
     }
-    table .green {
+    table .supported {
       background-color: green;
     }
-    table .red {
+    table .unsupported {
       background-color: red;
     }
-    table .green,
-    table .red {
+    table .supported,
+    table .unsupported {
       width: 20%;
+      text-align: center;
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 9px;
     }
     table .name {
       width: 80%;
@@ -164,20 +168,20 @@
       initialize: function() {
         var standardFeaturesTable = document.getElementById("standard-features-table"),
             customFeaturesTable = document.getElementById("custom-features-table"),
-            i, isFeatureSupported, html = "", className;
+            i, isFeatureSupported, html = "", state;
         
         for (i in this._features) if (this._features.hasOwnProperty(i)) {
           isFeatureSupported = this._features[i]();
-          className = isFeatureSupported ? "green" : "red";
-          html += '<tr><td class="name">' + i + '</td><td class="' + className + '"></td>';
+          state = isFeatureSupported ? "supported" : "unsupported";
+          html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
         }
         standardFeaturesTable.innerHTML = html;
         
         html = ""
         for (i in this._customFeatures) if (this._customFeatures.hasOwnProperty(i)) {
           isFeatureSupported = this._customFeatures[i]();
-          className = isFeatureSupported ? "green" : "red";
-          html += '<tr><td class="name">' + i + '</td><td class="' + className + '"></td>';
+          state = isFeatureSupported ? "supported" : "unsupported";
+          html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
         }
         customFeaturesTable.innerHTML = html;
         
