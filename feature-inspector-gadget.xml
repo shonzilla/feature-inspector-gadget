@@ -14,7 +14,7 @@
     <!-- Probably undetectable
     <Optional feature="auth-refresh" />
     -->
-    <!-- TODO
+    <!-- Destroys other functionalities
     <Optional feature="caja" />
     -->
     <Optional feature="content-rewrite">
@@ -38,7 +38,9 @@
     <Optional feature="opensocial-0.8" />
     <Optional feature="opensocial-0.9" />
     <Optional feature="opensocial-base" />
-    <!-- <Optional feature="opensocial-current" /> -->
+    <!-- Probably undetectable
+    <Optional feature="opensocial-current" />
+    -->
     <Optional feature="opensocial-data" />
     <Optional feature="opensocial-data-context" />
     <Optional feature="opensocial-jsonrpc" />
@@ -62,11 +64,18 @@
     <Optional feature="ads" />
     <Optional feature="drag" />
     <Optional feature="finance" />
+    <Optional feature="google.blog" /><!-- http://code.google.com/apis/blogger/docs/gadgets/gadgets_for_blogger.html -->
     <Optional feature="google.sharedstate" />
     <Optional feature="grid" />
     <Optional feature="multisize" />
+    <Optional feature="sharedmap" /><!-- http://code.google.com/apis/maps/documentation/mapplets/basics.html -->
     <Optional feature="wave" />
     <Optional feature="xing-ext" />
+    <!--
+    TODO:
+    check
+      - http://www.socialtext.net/open/index.cgi?socialtext_specific_container_features
+    -->
 
   </ModulePrefs>
   <Content type="html"><![CDATA[
@@ -92,8 +101,13 @@
     table .name {
       width: 80%;
     }
+    #unchecked-features,
     #custom-features {
-      margin: 20px 0 0 0;
+      margin: 25px 0 0 0;
+    }
+    #unchecked-features {
+      color: #999;
+      margin-bottom: 10px;
     }
     .content-rewrite-test {
       display: none;
@@ -101,12 +115,20 @@
   </style>
 
   <div id="standard-features">
-    <h2>Standard Features</h3>
+    <h2>Standard Features</h2>
     <table width="100%" id="standard-features-table" border="1" cellpadding="3" cellspacing="3"></table>
   </div>
   <div id="custom-features">
-    <h2>Custom Features</h3>
+    <h2>Custom Features</h2>
     <table width="100%" id="custom-features-table" border="1" cellpadding="3" cellspacing="3"></table>
+  </div>
+  
+  <div id="unchecked-features">
+    <strong>Please note:</strong> This inspector isn't (yet) able to check for the
+      <i>caja</i>,
+      <i>opensocial-current</i>,
+      <i>locked-domain</i> and the
+      <i>auth-refresh</i> feature.
   </div>
   
   <div class="content-rewrite-test">
@@ -119,7 +141,7 @@
       _features: {
         "analytics":                  function() { return  window.urchinTracker || !!window._gat || !!window._IG_GA || !!window._IG_Analytics; },
         // "auth-refresh":            function() { return false; }, // Probably undetectable
-        //"caja":                       function() { return !!window.caja___; }, // TODO
+        // "caja":                       function() { return !!window.caja___; }, // TODO
         "content-rewrite":            function() { return document.getElementById("cr-jpg").src != "http://www.foo.bar/image.jpg" && document.getElementById("cr-png").src == "http://www.foo.bar/image.png"; },
         "core":                       function() { return !!window.gadgets; },
         "core.io":                    function() { return !!window.gadgets && !!gadgets.io; },
@@ -158,9 +180,11 @@
         "ads":                        function() { return !!window._ADS_ClickDestinationUrl; },
         "drag":                       function() { return !!window._IG_Drag; },
         "finance":                    function() { return !!window.google && !!google.finance; },
+        "google.blog":                function() { return !!window.google && !!google.Blog; },
         "google.sharedstate":         function() { return !!window.gadgets && !!gadgets.sharedstate; },
         "grid":                       function() { return !!window._IG_Grid; },
         "multisize":                  function() { return !!window._IG_MultiSize; },
+        "sharedmap":                  function() { return !!window.GMap2; },
         "wave":                       function() { return !!window.wave; },
         "xing-ext":                   function() { return !!window.xing; }
       },
@@ -170,18 +194,24 @@
             customFeaturesTable = document.getElementById("custom-features-table"),
             i, isFeatureSupported, html = "", state;
         
-        for (i in this._features) if (this._features.hasOwnProperty(i)) {
-          isFeatureSupported = this._features[i]();
-          state = isFeatureSupported ? "supported" : "unsupported";
-          html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
+        for (i in this._features) {
+          if (this._features.hasOwnProperty(i)) {
+            console.log(i);
+            isFeatureSupported = this._features[i]();
+            state = isFeatureSupported ? "supported" : "unsupported";
+            html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
+          }
         }
         standardFeaturesTable.innerHTML = html;
         
         html = ""
-        for (i in this._customFeatures) if (this._customFeatures.hasOwnProperty(i)) {
-          isFeatureSupported = this._customFeatures[i]();
-          state = isFeatureSupported ? "supported" : "unsupported";
-          html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
+        for (i in this._customFeatures) {
+          if (this._customFeatures.hasOwnProperty(i)) {
+            console.log(i);
+            isFeatureSupported = this._customFeatures[i]();
+            state = isFeatureSupported ? "supported" : "unsupported";
+            html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
+          }
         }
         customFeaturesTable.innerHTML = html;
         
