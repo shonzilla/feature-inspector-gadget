@@ -113,8 +113,20 @@
     .content-rewrite-test {
       display: none;
     }
+    .ie {
+      background-color: red;
+      color: #fff;
+      padding: 5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      text-align: center;
+    }
   </style>
-
+  
+  <!--[if lt IE 8]>
+    <div class="ie">This Gadget isn't compatible with Internet Explorer versions lower than 8. Sorry.</div>
+  <![endif]-->
+  
   <div id="standard-features">
     <h2>Standard Features</h2>
     <table width="100%" id="standard-features-table" border="1" cellpadding="3" cellspacing="3"></table>
