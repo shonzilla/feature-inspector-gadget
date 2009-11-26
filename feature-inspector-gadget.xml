@@ -62,6 +62,7 @@
       OSDE doesn't support them. 
     -->
     <Optional feature="ads" />
+    <Optional feature="atlassian.util" />
     <Optional feature="drag" />
     <Optional feature="finance" />
     <Optional feature="google.blog" /><!-- http://code.google.com/apis/blogger/docs/gadgets/gadgets_for_blogger.html -->
@@ -178,6 +179,7 @@
 
       _customFeatures: {
         "ads":                        function() { return !!window._ADS_ClickDestinationUrl; },
+        "atlassian.util":             function() { return !!window.atlassian && !!atlassian.util; },
         "drag":                       function() { return !!window._IG_Drag; },
         "finance":                    function() { return !!window.google && !!google.finance; },
         "google.blog":                function() { return !!window.google && !!google.Blog; },
