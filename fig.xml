@@ -96,6 +96,7 @@
     table .docUrl {
       width: 50%;
       text-align: center;
+      font-size: 11px;
     }
     table .docUrl .external {
       background: url(http://de.wikipedia.org/skins-1.5/monobook/external.png) center right no-repeat;
@@ -280,10 +281,10 @@
             if (featureDocItem && featureDocItem != "") {
               if (typeof(featureDocItem) == 'object') {
                 for (featureDocTitle in featureDocItem) {
-                  docLinkTag += '<a class="external" href="' + featureDocItem[featureDocTitle] + '">' + featureDocTitle + '</a>&nbsp;';
+                  docLinkTag += '<a class="external" target="_blank" href="' + featureDocItem[featureDocTitle] + '">' + featureDocTitle + '</a>&nbsp;';
                 }
               } else { // one string => one standard feature doc
-                docLinkTag = '<a class="external" href="' + featureDocItem + '">' + DEFAULT_LINK_TEXT + '</a> ';
+                docLinkTag = '<a class="external" target="_blank" href="' + featureDocItem + '">' + DEFAULT_LINK_TEXT + '</a> ';
               }
             } else {
               docLinkTag = '<i>' + LINK_NA + '</i>';
