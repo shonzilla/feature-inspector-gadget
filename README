@@ -4,7 +4,10 @@ Gadget Feature Inspector
 What is it?
 -----------
 Gadget used to inspect what gadget features are supported by a gadget container 
-in which this gadget is run. More information about gadgets you can find here:
+in which this gadget is run. This gadget also provides links to pages with additional
+info (documentation and tutorials) about respective gadgets.
+
+More information about gadgets in general you can find here:
 http://code.google.com/apis/gadgets/docs/spec.html
 
 OpenSocial containers are also gadget containers so any social networking site
@@ -19,8 +22,23 @@ Some of gadget containers in which you can run this gadget are:
 Additional OpenSocial containers can be found at:
 http://wiki.opensocial.org/index.php?title=Main_Page#Container_Information
 
+Authors:
+Nenad V. Nikolic <nenad.nikolic@xing.com>
+Christopher Blum <christopher.blum@xing.com>
+
 Release notes
 -------------
+
+* Version 0.4
+
+November 26, 2009
+
+- Added Feature Documentation column for links to docs and tutorials for respective features
+- Added table header
+- Added atlassian-util feature
+- We like short, catchy names so we've introduced one (FIG) and a corresponding gadget logo
+- Code refactored
+
 
 * Version 0.3
 

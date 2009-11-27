@@ -1,89 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs
-    title="Feature Inspector Gadget"
-    author_email="shone@europe.com"
-    description="Gadget for inspecting available gadget features within a gadget container"
-    height="500">
-    
-    <!-- 
-      Standard gadget features
-      according to Apache Shindig OpenSocial container 
-    -->
-    <Optional feature="analytics" />
-    <!-- Probably undetectable
-    <Optional feature="auth-refresh" />
-    -->
-    <!-- Destroys other functionalities
-    <Optional feature="caja" />
-    -->
-    <Optional feature="content-rewrite">
-      <Param name="expires">86400</Param>
-      <Param name="include-url">.jpg</Param>
-      <Param name="exclude-url">.png</Param>
-    </Optional>
-    <Optional feature="core" />
-    <Optional feature="core.io" />
-    <Optional feature="dynamic-height" />
-    <Optional feature="dynamic-height.util" />
-    <Optional feature="flash" />
-    <Optional feature="i18n" />
-    <!-- Probably undetectable
-    <Optional feature="locked-domain" />
-    -->
-    <Optional feature="minimessage" />
-    <Optional feature="oauthpopup" />
-    <Optional feature="opensocial-0.6" />
-    <Optional feature="opensocial-0.7" />
-    <Optional feature="opensocial-0.8" />
-    <Optional feature="opensocial-0.9" />
-    <Optional feature="opensocial-base" />
-    <!-- Probably undetectable
-    <Optional feature="opensocial-current" />
-    -->
-    <Optional feature="opensocial-data" />
-    <Optional feature="opensocial-data-context" />
-    <Optional feature="opensocial-jsonrpc" />
-    <Optional feature="opensocial-reference" />
-    <Optional feature="opensocial-templates" />
-    <Optional feature="osapi" />
-    <Optional feature="pubsub" />
-    <Optional feature="rpc" />
-    <Optional feature="setprefs" />
-    <Optional feature="settitle" />
-    <Optional feature="skins" />
-    <Optional feature="swfobject" />
-    <Optional feature="tabs" />
-    <Optional feature="views" />
-    <Optional feature="xmlutil" />
-    
-    <!-- 
-      Container-specific gadget features
-      OSDE doesn't support them. 
-    -->
-    <Optional feature="ads" />
-    <Optional feature="atlassian.util" />
-    <Optional feature="drag" />
-    <Optional feature="finance" />
-    <Optional feature="google.blog" /><!-- http://code.google.com/apis/blogger/docs/gadgets/gadgets_for_blogger.html -->
-    <Optional feature="google.sharedstate" />
-    <Optional feature="grid" />
-    <Optional feature="multisize" />
-    <Optional feature="sharedmap" /><!-- http://code.google.com/apis/maps/documentation/mapplets/basics.html -->
-    <Optional feature="wave" />
-    <Optional feature="xing-ext" />
-    <!--
-    TODO:
-    check
-      - http://www.socialtext.net/open/index.cgi?socialtext_specific_container_features
-    -->
-
-  </ModulePrefs>
-  <Content type="html"><![CDATA[
-  <style type="text/css">
+    <ModulePrefs
+            title="FIG - Feature Inspector Gadget v0.4"
+            title_url="http://shonzilla.com/gadgets/fig.xml"
+            author="Nenad V. Nikolic &amp; Christopher Blum"
+            author_email="nenad.nikolic@xing.com"
+            description="Gadget for inspecting available gadget features within a gadget container"
+            thumbnail="http://shonzilla.com/gadgets/fig.png">
+        <!--
+        Standard gadget features according to Apache Shindig OpenSocial container 
+        -->
+        <Optional feature="analytics" />
+        <Optional feature="content-rewrite">
+            <Param name="expires">86400</Param>
+            <Param name="include-url">.jpg</Param>
+            <Param name="exclude-url">.png</Param>
+        </Optional>
+        <Optional feature="core" />
+        <Optional feature="core.io" />
+        <Optional feature="dynamic-height" />
+        <Optional feature="dynamic-height.util" />
+        <Optional feature="flash" />
+        <Optional feature="i18n" />
+        <Optional feature="minimessage" />
+        <Optional feature="oauthpopup" />
+        <Optional feature="opensocial-0.6" />
+        <Optional feature="opensocial-0.7" />
+        <Optional feature="opensocial-0.8" />
+        <Optional feature="opensocial-0.9" />
+        <Optional feature="opensocial-base" />
+        <Optional feature="opensocial-data" />
+        <Optional feature="opensocial-data-context" />
+        <Optional feature="opensocial-jsonrpc" />
+        <Optional feature="opensocial-reference" />
+        <Optional feature="opensocial-templates" />
+        <Optional feature="osapi" />
+        <Optional feature="pubsub" />
+        <Optional feature="rpc" />
+        <Optional feature="setprefs" />
+        <Optional feature="settitle" />
+        <Optional feature="skins" />
+        <Optional feature="swfobject" />
+        <Optional feature="tabs" />
+        <Optional feature="views" />
+        <Optional feature="xmlutil" />
+        
+        <!-- 
+        Container-specific gadget features
+        -->
+        <Optional feature="ads" />
+        <Optional feature="drag" />
+        <Optional feature="finance" />
+        <Optional feature="google.blog" />
+        <Optional feature="google.sharedstate" />
+        <Optional feature="grid" />
+        <Optional feature="multisize" />
+        <Optional feature="sharedmap" />
+        <Optional feature="wave" />
+        <Optional feature="xing-ext" />
+        <!--
+        TODO:
+        check http://www.socialtext.net/open/index.cgi?socialtext_specific_container_features
+        -->
+        
+    </ModulePrefs>
+    <Content type="html"><![CDATA[<style type="text/css">
     body {
       font-size: 11px;
       font-family: Verdana, Arial, sans-serif;
+    }
+    h2 {
+      font-size: 20px;
+    }
+    table th {
+      background-color: silver;
     }
     table .supported {
       background-color: green;
@@ -100,7 +90,16 @@
       font-size: 9px;
     }
     table .name {
-      width: 80%;
+      font-family: Courier, Fixed, monospace;
+      width: 30%;
+    }
+    table .docUrl {
+      width: 50%;
+      text-align: center;
+    }
+    table .docUrl .external {
+      background: url(http://de.wikipedia.org/skins-1.5/monobook/external.png) center right no-repeat;
+      padding: 0 13px;
     }
     #unchecked-features,
     #custom-features {
@@ -137,7 +136,7 @@
   </div>
   
   <div id="unchecked-features">
-    <strong>Please note:</strong> This inspector isn't (yet) able to check for the
+    <strong>Please note:</strong> <i>Feature Inspector Gadget</i> isn't able (yet) to check for the
       <i>caja</i>,
       <i>opensocial-current</i>,
       <i>locked-domain</i> and the
@@ -153,7 +152,7 @@
     var GadgetFeatureInspector = {
       _features: {
         "analytics":                  function() { return  window.urchinTracker || !!window._gat || !!window._IG_GA || !!window._IG_Analytics; },
-        // "auth-refresh":            function() { return false; }, // Probably undetectable
+        // "auth-refresh":               function() { return false; }, // Probably undetectable
         // "caja":                       function() { return !!window.caja___; }, // TODO
         "content-rewrite":            function() { return document.getElementById("cr-jpg").src != "http://www.foo.bar/image.jpg" && document.getElementById("cr-png").src == "http://www.foo.bar/image.png"; },
         "core":                       function() { return !!window.gadgets; },
@@ -162,7 +161,7 @@
         "dynamic-height.util":        function() { return !!window.gadgets && !!gadgets.window && !!gadgets.window.getViewportDimensions; },
         "flash":                      function() { return ( !!window.gadgets && !!gadgets.flash ) || !!window._IG_EmbedFlash; },
         "i18n":                       function() { return !!window.gadgets && !!gadgets.i18n; },
-        // "locked-domain":           function() { return false; }, // Propably undetectable
+        // "locked-domain":              function() { return false; }, // Propably undetectable
         "minimessage":                function() { return ( !!window.gadgets && !!gadgets.MiniMessage ) || !!window._IG_MiniMessage; },
         "oauthpopup":                 function() { return !!window.gadgets && !!gadgets.oauth && !!gadgets.oauth.Popup; },
         "opensocial-0.6":             function() { return !!window.opensocial && !!opensocial.Environment && !!opensocial.Environment.prototype && !!opensocial.Environment.prototype.getSurface; },
@@ -188,7 +187,6 @@
         "xmlutil":                    function() { return !!window.opensocial && !!opensocial.xmlutil; }
       },
 
-
       _customFeatures: {
         "ads":                        function() { return !!window._ADS_ClickDestinationUrl; },
         "atlassian.util":             function() { return !!window.atlassian && !!atlassian.util; },
@@ -202,32 +200,100 @@
         "wave":                       function() { return !!window.wave; },
         "xing-ext":                   function() { return !!window.xing; }
       },
+
+      // Feature documentation link map "feature" : object
+      // where object is either a "link" or {("title": "link")+}
+      _featureDocs: {
+        "analytics":                  "http://code.google.com/apis/analytics/docs/tracking/gadgetTracking.html",
+        "content-rewrite":            "http://wiki.opensocial.org/index.php?title=Content_Rewriter_Feature",
+        "core":                       "http://code.google.com/apis/gadgets/docs/spec.html#corejavascriptapi",
+        "core.io": "",
+        "dynamic-height":             "http://code.google.com/apis/gadgets/docs/reference/#gadgets.window", // http://code.google.com/apis/gadgets/docs/ui.html#Dyn_Height
+        "dynamic-height.util": "",
+        "flash":                      "http://code.google.com/apis/gadgets/docs/reference/#gadgets.flash", // "http://code.google.com/apis/gadgets/docs/ui.html#Flash"
+        "i18n":                       "http://code.google.com/apis/gadgets/docs/i18n.html",
+        // "locked-domain": "",
+        "minimessage":                "http://code.google.com/apis/gadgets/docs/reference/#gadgets.MiniMessage", // "http://code.google.com/apis/gadgets/docs/ui.html#Mini"
+        "oauthpopup":                 "http://wiki.opensocial.org/index.php?title=OAuth_Popup",
+        "opensocial-0.6":             "http://code.google.com/apis/opensocial/articles/tutorial/tutorial-0.6.html",
+        "opensocial-0.7":             "http://code.google.com/apis/opensocial/articles/tutorial/tutorial-0.7.html",
+        "opensocial-0.8":             "http://code.google.com/apis/opensocial/articles/tutorial/tutorial-0.8.html",
+        "opensocial-0.9":             "http://www.opensocial.org/Technical-Resources/opensocial-spec-v09/",
+        "opensocial-base":            "",
+        // "opensocial-current":         "",
+        "opensocial-data":            "http://opensocial-resources.googlecode.com/svn/spec/0.9/OpenSocial-Data-Pipelining.xml",
+        "opensocial-data-context":    "http://opensocial-resources.googlecode.com/svn/spec/0.9/OpenSocial-Data-Pipelining.xml#rfc.section.11",
+        "opensocial-jsonrpc":         "http://opensocial-resources.googlecode.com/svn/spec/draft/RPC-Protocol.xml",
+        "opensocial-reference":       "",
+        "opensocial-templates":       "http://opensocial-resources.googlecode.com/svn/spec/0.9/OpenSocial-Templating.xml",
+        "osapi":                      "http://wiki.opensocial.org/index.php?title=OSAPI_Specification#OSAPI_Features",
+        "pubsub":                     "http://code.google.com/apis/gadgets/docs/pubsub.html",
+        "rpc":                        "http://code.google.com/apis/gadgets/docs/reference/#gadgets.rpc",
+        "setprefs":                   {"Method Docs": "http://code.google.com/apis/gadgets/docs/reference/#gadgets.Prefs",
+                                       "Tutorial": "http://code.google.com/apis/gadgets/docs/fundamentals.html#SetPrefs"},
+        "settitle":                   {"Method Docs" : "http://code.google.com/apis/gadgets/docs/reference/#gadgets.window.setTitle",
+                                       "Tutorial": "http://code.google.com/apis/gadgets/docs/ui.html#Settitle"},
+        "skins":                      {"Method Docs": "http://code.google.com/apis/gadgets/docs/reference/#gadgets.skins"},
+        "swfobject":                  "http://code.google.com/p/swfobject/wiki/documentation",
+        "tabs":                       {"Method Docs": "http://code.google.com/apis/gadgets/docs/reference/#gadgets.Tab",
+                                       "Tutorial": "http://code.google.com/apis/gadgets/docs/ui.html#Tabs"}, 
+        "views":                      "http://code.google.com/apis/gadgets/docs/reference/#gadgets.views",
+        "xmlutil":                    "",
+
+        "ads":                        {"Tutorial": "http://www.google.com/adwords/gadgetads/tutorial.html"},
+        "atlassian-util":             {"Atlassian Gadget Framework": "http://confluence.atlassian.com/display/GADGETS010/Using+the+Atlassian+Gadgets+JavaScript+Framework"},
+        "drag":                       {"Drag'n'drop Feature Docs": "http://code.google.com/apis/gadgets/docs/legacy/ui.html#Drag"},
+        "finance":                    {"Financial Gadgets Docs": "http://code.google.com/apis/finance/docs/finance-gadgets.html"},
+        "google.blog":                "http://code.google.com/apis/blogger/docs/gadgets/gadgets_for_blogger.html",
+        "google.sharedstate":         "http://code.google.com/apis/talk/gadgets_realtime.html#api_reference",
+        "grid":                       "http://code.google.com/apis/gadgets/docs/legacy/reference.html#Ref_Grid",
+        "multisize":                  "http://gadgetads.googlecode.com/svn-history/r507/trunk/gadget-multisize-feature.html",
+        "sharedmap":                  "http://code.google.com/apis/maps/documentation/mapplets/basics.html",
+        "wave":                       "http://code.google.com/apis/wave/extensions/gadgets/guide.html"
+      },
       
       initialize: function() {
         var standardFeaturesTable = document.getElementById("standard-features-table"),
-            customFeaturesTable = document.getElementById("custom-features-table"),
-            i, isFeatureSupported, html = "", state;
+            customFeaturesTable = document.getElementById("custom-features-table");
         
-        for (i in this._features) {
-          if (this._features.hasOwnProperty(i)) {
-            isFeatureSupported = this._features[i]();
-            state = isFeatureSupported ? "supported" : "unsupported";
-            html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
-          }
-        }
-        standardFeaturesTable.innerHTML = html;
-        
-        html = ""
-        for (i in this._customFeatures) {
-          if (this._customFeatures.hasOwnProperty(i)) {
-            isFeatureSupported = this._customFeatures[i]();
-            state = isFeatureSupported ? "supported" : "unsupported";
-            html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>';
-          }
-        }
-        customFeaturesTable.innerHTML = html;
-        
+        this._renderFeatures(standardFeaturesTable, this._features, true);
+        this._renderFeatures(customFeaturesTable, this._customFeatures, true);
         this._adjustHeight();
+      },
+
+      /**
+       * Render feature info as a table row.
+       * @param domEl {object} DOM element in which to render a table row
+       * @param features {object} a list of features and their info
+       * @param append {boolean} whether features info should be appended to existing content or not
+       */
+      _renderFeatures: function(domEl, features, append) {
+        var html = "", i, isFeatureSupported, state;
+        var LINK_NA = "N/A", DEFAULT_LINK_TEXT = "Documentation";
+        
+        domEl.innerHTML = '<tr><th>Feature Name</th><th>Container support</th><th>Feature Documentation</th></tr>';
+        for (i in features) {
+          if (features.hasOwnProperty(i)) {
+            isFeatureSupported = features[i]();
+            state = isFeatureSupported ? "supported" : "unsupported";
+            featureDocItem = this._featureDocs[i];
+            if (featureDocItem && featureDocItem != "") {
+              if (typeof(featureDocItem) == 'object') {
+                for (featureDocTitle in featureDocItem) {
+                  docLinkTag += '<a class="external" href="' + featureDocItem[featureDocTitle] + '">' + featureDocTitle + '</a>&nbsp;';
+                }
+              } else { // one string => one standard feature doc
+                docLinkTag = '<a class="external" href="' + featureDocItem + '">' + DEFAULT_LINK_TEXT + '</a> ';
+              }
+            } else {
+              docLinkTag = '<i>' + LINK_NA + '</i>';
+            }
+            html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>'
+              + '<td class="docUrl">' + docLinkTag + '</td></tr>';
+            docLinkTag = "";
+          }
+        }
+        append ? (domEl.innerHTML += html) : (domEl.innerHTML = html);
       },
 
       _adjustHeight: function() {
@@ -242,6 +308,13 @@
 
     var initializer = function() { GadgetFeatureInspector.initialize(); };
 
+
+    /*
+    TODO: Enable usage tracking using Google Analytics
+    var ga = new window._IG_GA("UA-976812-4");
+    ga.reportPageview('/view/featureInspectorGadget');
+    */
+
     if (window._IG_RegisterOnloadHandler) {
       window._IG_RegisterOnloadHandler(initializer);
     } else if (window.gadgets && gadgets.util && gadgets.util.registerOnLoadHandler) {
@@ -249,6 +322,5 @@
     } else {
       initializer();
     }
-  </script>
-  ]]></Content>
+  </script>]]></Content>
 </Module>
