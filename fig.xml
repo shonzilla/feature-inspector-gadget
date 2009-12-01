@@ -6,6 +6,7 @@
             author="__MSG_author__"
             author_email="__MSG_author_email__"
             author_affiliation="__MSG_author_affiliation__"
+            author_link="__MSG_author_link__"
             author_location="__MSG_author_location__"
             description="__MSG_description__ __MSG_last_version__: __MSG_current_version__, __MSG_date__: __MSG_current_version_date__"
             thumbnail="__MSG_thumbnail__"
@@ -105,7 +106,7 @@
       text-align: center;
       font-size: 11px;
     }
-    table .docUrl .external {
+    table .docUrl a {
       background: url(http://de.wikipedia.org/skins-1.5/monobook/external.png) center __BIDI_END_EDGE__ no-repeat;
       padding: 0 13px;
     }
@@ -289,10 +290,10 @@
             if (featureDocItem && featureDocItem != "") {
               if (typeof(featureDocItem) == 'object') {
                 for (featureDocTitle in featureDocItem) {
-                  docLinkTag += '<a class="external" target="_blank" href="' + featureDocItem[featureDocTitle] + '">' + featureDocTitle + '</a>&nbsp;';
+                  docLinkTag += '<a target="_blank" href="' + featureDocItem[featureDocTitle] + '">' + featureDocTitle + '</a>&nbsp;';
                 }
               } else { // one string => one standard feature doc
-                docLinkTag = '<a class="external" target="_blank" href="' + featureDocItem + '">' + DEFAULT_LINK_TEXT + '</a> ';
+                docLinkTag = '<a target="_blank" href="' + featureDocItem + '">' + DEFAULT_LINK_TEXT + '</a> ';
               }
             } else {
               docLinkTag = '<i>' + LINK_NA + '</i>';
@@ -316,14 +317,7 @@
 
 
     var initializer = function() { GadgetFeatureInspector.initialize(); };
-
-
-    /*
-    TODO: Enable usage tracking using Google Analytics
-    var ga = new window._IG_GA("UA-976812-4");
-    ga.reportPageview('/view/featureInspectorGadget');
-    */
-
+    
     if (window._IG_RegisterOnloadHandler) {
       window._IG_RegisterOnloadHandler(initializer);
     } else if (window.gadgets && gadgets.util && gadgets.util.registerOnLoadHandler) {
@@ -331,5 +325,11 @@
     } else {
       initializer();
     }
+    
+    /*
+    TODO: Enable usage tracking using Google Analytics
+    var ga = new window._IG_GA("UA-976812-4");
+    ga.reportPageview('/view/featureInspectorGadget');
+    */
   </script>]]></Content>
 </Module>

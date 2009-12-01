@@ -29,6 +29,14 @@ Christopher Blum <christopher.blum@xing.com>
 Release notes
 -------------
 
+*0.44
+
+December 1, 2009
+
+- Adjusted/fixed some german translations
+- Added author_link to gadget meta data
+- Removed unneeded "external" css class
+
 * Version 0.43
 
 December 1, 2009

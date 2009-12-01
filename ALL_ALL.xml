@@ -2,11 +2,12 @@
 <messagebundle>
   <msg name="abbr">FIG</msg>
   <msg name="title">Feature Inspector Gadget</msg>
-  <msg name="current_version">v0.43</msg>
+  <msg name="current_version">v0.44</msg>
   <msg name="date">Date</msg>
   <msg name="current_version_date">2009-12-01</msg>
   <msg name="author">Nenad V. Nikolić &amp; Christopher Blum</msg>
   <msg name="author_email">nenad.nikolic@xing.com</msg>
+  <msg name="author_link">http://www.xing.com</msg>
   <msg name="author_affiliation">XING AG</msg>
   <msg name="author_location">Hamburg, Germany</msg>
   <msg name="thumbnail">http://shonzilla.com/gadgets/img/fig.png</msg>
