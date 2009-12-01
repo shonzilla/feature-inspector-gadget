@@ -29,9 +29,19 @@ Christopher Blum <christopher.blum@xing.com>
 Release notes
 -------------
 
-November 27, 2009
+* Version 0.42
+
+November 30, 2009
+
+- Gadget is localized to English (default), German, Spanish and Serbian
+- Added affiliation
+- Added default (English) screenshot
+- Adjusted font-size, doc links are opened in a new window
+- Gadget is now fully compliant with gadget specification
 
 * Version 0.41
+
+November 27, 2009
 
 - Renamed gadget file to fig.xml
 

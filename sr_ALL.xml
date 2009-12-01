@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messagebundle>
+  <msg name="description">Gadžet za pronalaženje gadžet funkcija (feature-a) koje podržava (gadžet) kontejner unutar koga je ovaj gadžet pokrenut.</msg>
+  <msg name="last_version">Poslednja verzija</msg>
+  <msg name="date">Datum</msg>
+  <msg name="author_location">Hamburg, Nemačka</msg>
+
+  <msg name="standard_features">Standardne Funkcije</msg>
+  <msg name="custom_features">Posebne Funkcije</msg>
+  <msg name="documentation">Dokumentacija</msg> 
+  <msg name="please_note">Pažnja</msg>
+  <msg name="not_able">ne može da detektuje sledeće funkcije</msg>
+  <msg name="and">i</msg>
+  <msg name="not_available">Nedostupno</msg>
+</messagebundle> 

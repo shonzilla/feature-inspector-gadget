@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messagebundle>
+  <msg name="description">Gadget für die Untersuchung von verfügbaren Gadget Features in entsprechenem Gadget Container.</msg>
+  <msg name="last_version">Letzte Version</msg>
+  <msg name="date">Datum</msg>
+  <msg name="author_location">Hamburg, Deutschland</msg>
+
+  <msg name="standard_features">Standarde Features</msg>
+  <msg name="custom_features">Maßgeschneiderte Features</msg>
+  <msg name="documentation">Dokumentation</msg> 
+  <msg name="supported">unterstützt</msg> 
+  <msg name="unsupported">nicht unterstützt</msg>
+  <msg name="feature_name">Feature Name</msg>
+  <msg name="container_support">Container Unterstützung</msg>
+  <msg name="feature_doc">Feature Documentation</msg> 
+  <msg name="please_note">Achtung</msg>
+  <msg name="not_able">kann noch nicht die folgende Features untersuchen</msg>
+  <msg name="and">und</msg>
+  <msg name="not_available">Nicht verfügbar</msg>
+</messagebundle> 

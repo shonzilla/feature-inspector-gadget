@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
     <ModulePrefs
-            title="FIG - Feature Inspector Gadget v0.4"
+            title="__MSG_abbr__ - __MSG_title__ __MSG_current_version__"
             title_url="http://shonzilla.com/gadgets/fig.xml"
-            author="Nenad V. Nikolic &amp; Christopher Blum"
-            author_email="nenad.nikolic@xing.com"
-            description="Gadget for inspecting available gadget features within a gadget container"
-            thumbnail="http://shonzilla.com/gadgets/fig.png">
+            author="__MSG_author__"
+            author_email="__MSG_author_email__"
+            author_affiliation="__MSG_author_affiliation__"
+            author_location="__MSG_author_location__"
+            description="__MSG_description__ __MSG_last_version__: __MSG_current_version__, __MSG_date__: __MSG_current_version_date__"
+            thumbnail="__MSG_thumbnail__"
+            screenshot="__MSG_screenshot__">
+        <Locale messages="http://shonzilla.com/gadgets/ALL_ALL.xml"/>
+        <Locale lang="de" messages="http://shonzilla.com/gadgets/de_ALL.xml"/>
+        <Locale lang="es" messages="http://shonzilla.com/gadgets/es_ALL.xml"/>
+        <Locale lang="sr" messages="http://shonzilla.com/gadgets/sr_ALL.xml"/>
         <!--
         Standard gadget features according to Apache Shindig OpenSocial container 
         -->
@@ -99,7 +106,7 @@
       font-size: 11px;
     }
     table .docUrl .external {
-      background: url(http://de.wikipedia.org/skins-1.5/monobook/external.png) center right no-repeat;
+      background: url(http://de.wikipedia.org/skins-1.5/monobook/external.png) center __BIDI_END_EDGE__ no-repeat;
       padding: 0 13px;
     }
     #unchecked-features,
@@ -128,25 +135,25 @@
   <![endif]-->
   
   <div id="standard-features">
-    <h2>Standard Features</h2>
+    <h2>__MSG_standard_features__</h2>
     <table width="100%" id="standard-features-table" border="1" cellpadding="3" cellspacing="3"></table>
   </div>
   <div id="custom-features">
-    <h2>Custom Features</h2>
+    <h2>__MSG_custom_features__</h2>
     <table width="100%" id="custom-features-table" border="1" cellpadding="3" cellspacing="3"></table>
   </div>
   
   <div id="unchecked-features">
-    <strong>Please note:</strong> <i>Feature Inspector Gadget</i> isn't able (yet) to check for the
+    <strong>__MSG_please_note__:</strong> <i>__MSG_title__</i> __MSG_not_able__:
       <i>caja</i>,
       <i>opensocial-current</i>,
-      <i>locked-domain</i> and the
-      <i>auth-refresh</i> feature.
+      <i>locked-domain</i> __MSG_and__
+      <i>auth-refresh</i>.
   </div>
   
   <div class="content-rewrite-test">
-    <img src="http://www.foo.bar/image.jpg" id="cr-jpg" />
-    <img src="http://www.foo.bar/image.png" id="cr-png" />
+    <img src="http://www.shonzilla.com/gadgets/img/foobar.jpg" id="cr-jpg" />
+    <img src="http://www.shonzilla.com/gadgets/img/foobar.png" id="cr-png" />
   </div>
 
   <script type="text/javascript">
@@ -155,7 +162,7 @@
         "analytics":                  function() { return  window.urchinTracker || !!window._gat || !!window._IG_GA || !!window._IG_Analytics; },
         // "auth-refresh":               function() { return false; }, // Probably undetectable
         // "caja":                       function() { return !!window.caja___; }, // TODO
-        "content-rewrite":            function() { return document.getElementById("cr-jpg").src != "http://www.foo.bar/image.jpg" && document.getElementById("cr-png").src == "http://www.foo.bar/image.png"; },
+        "content-rewrite":            function() { return document.getElementById("cr-jpg").src != "http://www.shonzilla.com/gadgets/img/foobar.jpg" && document.getElementById("cr-png").src == "http://www.shonzilla.com/gadgets/img/foobar.png"; },
         "core":                       function() { return !!window.gadgets; },
         "core.io":                    function() { return !!window.gadgets && !!gadgets.io; },
         "dynamic-height":             function() { return ( !!window.gadgets && !!gadgets.window && !!gadgets.window.adjustHeight ) || !!window._IG_AdjustIFrameHeight; },
@@ -270,13 +277,14 @@
        */
       _renderFeatures: function(domEl, features, append) {
         var html = "", i, isFeatureSupported, state;
-        var LINK_NA = "N/A", DEFAULT_LINK_TEXT = "Documentation";
+        var LINK_NA = getMsg("not_available"), DEFAULT_LINK_TEXT = getMsg("documentation");
         
-        domEl.innerHTML = '<tr><th>Feature Name</th><th>Container support</th><th>Feature Documentation</th></tr>';
+        domEl.innerHTML = '<tr><th>__MSG_feature_name__</th><th>__MSG_container_support__</th><th>__MSG_feature_doc__</th></tr>';
         for (i in features) {
           if (features.hasOwnProperty(i)) {
             isFeatureSupported = features[i]();
-            state = isFeatureSupported ? "supported" : "unsupported";
+            stateClass = isFeatureSupported ? "supported" : "unsupported";
+            state = isFeatureSupported ? getMsg("supported") : getMsg("unsupported");
             featureDocItem = this._featureDocs[i];
             if (featureDocItem && featureDocItem != "") {
               if (typeof(featureDocItem) == 'object') {
@@ -289,7 +297,7 @@
             } else {
               docLinkTag = '<i>' + LINK_NA + '</i>';
             }
-            html += '<tr><td class="name">' + i + '</td><td class="' + state + '">' + state + '</td>'
+            html += '<tr><td class="name">' + i + '</td><td class="' + stateClass + '">' + state + '</td>'
               + '<td class="docUrl">' + docLinkTag + '</td></tr>';
             docLinkTag = "";
           }

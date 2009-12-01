@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messagebundle>
+  <msg name="abbr">FIG</msg>
+  <msg name="title">Feature Inspector Gadget</msg>
+  <msg name="current_version">v0.42</msg>
+  <msg name="date">Date</msg>
+  <msg name="current_version_date">2009-11-30</msg>
+  <msg name="author">Nenad V. Nikolić &amp; Christopher Blum</msg>
+  <msg name="author_email">nenad.nikolic@xing.com</msg>
+  <msg name="author_affiliation">XING AG</msg>
+  <msg name="author_location">Hamburg, Germany</msg>
+  <msg name="thumbnail">http://shonzilla.com/gadgets/img/fig.png</msg>
+  <msg name="screenshot">http://shonzilla.com/gadgets/img/fig-screenshot.gif</msg>
+  <msg name="description">Gadget for inspecting available gadget features within a gadget container.</msg>
+  <msg name="last_version">Last version</msg>
+
+  <msg name="standard_features">Standard Features</msg>
+  <msg name="custom_features">Custom Features</msg>
+  <msg name="documentation">Documentation</msg>
+  <msg name="supported">supported</msg> 
+  <msg name="unsupported">unsupported</msg>
+  <msg name="feature_name">Feature Name</msg>
+  <msg name="container_support">Container support</msg>
+  <msg name="feature_doc">Feature Documentation</msg> 
+  <msg name="please_note">Please note</msg>
+  <msg name="not_able">isn't able (yet) to check for the following features</msg>
+  <msg name="and">and</msg>
+  <msg name="not_available">N/A</msg>
+</messagebundle>

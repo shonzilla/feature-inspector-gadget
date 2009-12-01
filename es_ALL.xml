@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messagebundle>
+  <msg name="description">Gadget sirve para inspectar los gadget features disponibles dentro un gadget container en el cual está corriendo.</msg>
+  <msg name="last_version">Última versión</msg>
+  <msg name="date">Fecha</msg>
+  <msg name="author_location">Hamburgo, Alemania</msg>
+
+  <msg name="standard_features">Features estándar</msg>
+  <msg name="custom_features">Features personalizados</msg>
+  <msg name="documentation">Documentación</msg> 
+  <msg name="supported">soportado</msg> 
+  <msg name="unsupported">insoportado</msg>
+  <msg name="feature_name">Nombre del Feature</msg>
+  <msg name="container_support">Container Soporte</msg>
+  <msg name="feature_doc">Feature Documentación</msg> 
+  <msg name="please_note">Atención</msg>
+  <msg name="not_able">no está capaz de detectar los features siguientes</msg>
+  <msg name="and">y</msg>
+  <msg name="not_available">No disponible</msg>
+</messagebundle> 
