@@ -29,6 +29,13 @@ Christopher Blum <christopher.blum@xing.com>
 Release notes
 -------------
 
+* Version 0.43
+
+December 1, 2009
+
+- Fixed l10n
+- Added missing Serbian translations
+
 * Version 0.42
 
 November 30, 2009
@@ -38,6 +45,7 @@ November 30, 2009
 - Added default (English) screenshot
 - Adjusted font-size, doc links are opened in a new window
 - Gadget is now fully compliant with gadget specification
+- Message extraction didn't work in this version
 
 * Version 0.41
 

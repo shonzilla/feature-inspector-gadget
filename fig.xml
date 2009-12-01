@@ -268,7 +268,7 @@
         this._renderFeatures(customFeaturesTable, this._customFeatures, true);
         this._adjustHeight();
       },
-
+      
       /**
        * Render feature info as a table row.
        * @param domEl {object} DOM element in which to render a table row
@@ -277,14 +277,14 @@
        */
       _renderFeatures: function(domEl, features, append) {
         var html = "", i, isFeatureSupported, state;
-        var LINK_NA = getMsg("not_available"), DEFAULT_LINK_TEXT = getMsg("documentation");
+        var LINK_NA = '__MSG_not_available__', DEFAULT_LINK_TEXT = '__MSG_documentation__';
         
         domEl.innerHTML = '<tr><th>__MSG_feature_name__</th><th>__MSG_container_support__</th><th>__MSG_feature_doc__</th></tr>';
         for (i in features) {
           if (features.hasOwnProperty(i)) {
             isFeatureSupported = features[i]();
             stateClass = isFeatureSupported ? "supported" : "unsupported";
-            state = isFeatureSupported ? getMsg("supported") : getMsg("unsupported");
+            state = isFeatureSupported ? '__MSG_supported__' : '__MSG_unsupported__';
             featureDocItem = this._featureDocs[i];
             if (featureDocItem && featureDocItem != "") {
               if (typeof(featureDocItem) == 'object') {

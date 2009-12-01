@@ -8,6 +8,11 @@
   <msg name="standard_features">Standardne Funkcije</msg>
   <msg name="custom_features">Posebne Funkcije</msg>
   <msg name="documentation">Dokumentacija</msg> 
+  <msg name="supported">podržano</msg> 
+  <msg name="unsupported">nije podržano</msg>
+  <msg name="feature_name">Ime Fičera</msg>
+  <msg name="container_support">Kontejnerska Podrška</msg>
+  <msg name="feature_doc">Fičer Dokumentacija</msg>
   <msg name="please_note">Pažnja</msg>
   <msg name="not_able">ne može da detektuje sledeće funkcije</msg>
   <msg name="and">i</msg>

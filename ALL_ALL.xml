@@ -2,7 +2,7 @@
 <messagebundle>
   <msg name="abbr">FIG</msg>
   <msg name="title">Feature Inspector Gadget</msg>
-  <msg name="current_version">v0.42</msg>
+  <msg name="current_version">v0.43</msg>
   <msg name="date">Date</msg>
   <msg name="current_version_date">2009-11-30</msg>
   <msg name="author">Nenad V. Nikolić &amp; Christopher Blum</msg>
