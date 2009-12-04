@@ -326,6 +326,12 @@
       initializer();
     }
     
+    try {
+      // Register a view of the gadget
+      var ga = _IG_Analytics("UA-976812-4", "/fig.xml");
+    } catch (e) { // Ignore
+    }
+    
     /*
     TODO: Enable usage tracking using Google Analytics
     var ga = new window._IG_GA("UA-976812-4");
